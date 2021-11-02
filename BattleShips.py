@@ -83,17 +83,23 @@ insert_ships("B", 5)
 #get row function 
 def get_row():
     row = input("enter the row you wish to shoot: ")
-    while int(row) not in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        print("please enter valid row")
-        row = input("enter the row you wish to shoot: ")
+    try:
+        while int(row) not in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+            print("please enter valid row")
+            row = input("enter the row you wish to shoot: ")
+    except:
+        row = get_row()    
     return row    
 
 #get column function        
 def get_column(): 
     column = input("enter the column you wish to shoot: ")   
-    while int(column) not in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        print("please enter valid column")
-        column = input("enter the column you wish to shoot: ")  
+    try: 
+        while int(column) not in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+            print("please enter valid column")
+            column = input("enter the column you wish to shoot: ")  
+    except:
+        column = get_column()         
     return column      
 
 
@@ -154,8 +160,7 @@ def shoot():
     print("""######################\n
 YOUR SCORE IS: {} / 81\n
 ######################""".format(score))             
-
-print_arena(battleships_arena_hidden)
+print_arena(battleships_arena)
 shoot()
 
    
