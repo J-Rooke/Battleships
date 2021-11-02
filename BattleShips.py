@@ -36,23 +36,49 @@ for i in range(1, 10):
         battleships_arena[i][y] = "W" 
         battleships_arena_hidden[i][y] = "W" 
 
-
-
-#function to generate random ships
-def generate_ships(ship, num=1):
-    count = num
-    while count > 0:
+#function to generate random ships and insert them to the dictionary, this function checks to see if the spaces are free
+def generate_ships(num):
+    count = 0
+    while count < num:
         row = randint(1, 9)
         column = randint(1, 9)
-        if battleships_arena_hidden[row][column] == "W":
-            battleships_arena_hidden[row][column] = ship
-            count -= 1
+        hor_or_vert = randint(1,2)
+        for i in range(num):
+            if hor_or_vert == 1:
+                try: 
+                    if battleships_arena_hidden[row][column + i] == "W":
+                        count += 1
+                except KeyError:
+                    break
+            if hor_or_vert == 2:
+                try:
+                    if battleships_arena_hidden[row + i][column] == "W":
+                        count += 1
+                except KeyError:
+                 break  
+        if count < num:
+            count = 0     
+    return row, column, hor_or_vert
+
+#this function inserts the ships into the dictionary after being checked the spaces are free
+def insert_ships(ship, num):
+    generated_ship = generate_ships(num)
+    row = generated_ship[0]
+    column = generated_ship[1]
+    hor_or_vert = generated_ship[2]
+    if hor_or_vert == 1:
+        for i in range(num):
+            battleships_arena_hidden[row][column + i] = ship
+    if hor_or_vert == 2:
+        for i in range(num):  
+            battleships_arena_hidden[row + i][column] = ship          
+
 
 #generate the ships
-generate_ships("C", 2)
-generate_ships("S", 3)
-generate_ships("D", 4)
-generate_ships("B", 5)
+insert_ships("C", 2)
+insert_ships("S", 3)
+insert_ships("D", 4)
+insert_ships("B", 5)
 
 #get row function 
 def get_row():
@@ -124,7 +150,7 @@ def shoot():
     ##############""")             
 
 print_arena(battleships_arena_hidden)
-shoot()     
+   
                    
         
 
