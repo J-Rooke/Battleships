@@ -113,10 +113,11 @@ def shoot():
         if battleships_arena_hidden[row][column] == "W":
             print("MISS!")
             score -= 1
-            battleships_arena_hidden[row][column] = "M"
+            battleships_arena_hidden[row][column] = "H"
             battleships_arena[row][column] = "M"
         elif battleships_arena_hidden[row][column] == "S":
             print("HIT!")
+            battleships_arena_hidden[row][column] = "H"
             battleships_arena[row][column] = "S"
             total_hits += 1
             submarine_hits += 1
@@ -124,6 +125,7 @@ def shoot():
                 print("YOU HAVE SUNK THE SUBMARINE!")
         elif battleships_arena_hidden[row][column] == "C":
             print("HIT!")
+            battleships_arena_hidden[row][column] = "H"
             battleships_arena[row][column] = "C"
             total_hits += 1
             cruiser_hits += 1
@@ -131,6 +133,7 @@ def shoot():
                 print("YOU HAVE SUNK THE CRUISER!")
         elif battleships_arena_hidden[row][column] == "D":
             print("HIT")
+            battleships_arena_hidden[row][column] = "H"
             battleships_arena[row][column] = "D"
             total_hits += 1
             destroyer_hits += 1
@@ -138,18 +141,23 @@ def shoot():
                 print("YOU HAVE SUNK THE DESTROYER!")
         elif battleships_arena_hidden[row][column] == "B":
             print("HIT!")
+            battleships_arena_hidden[row][column] = "H"
             battleships_arena[row][column] = "B"  
             total_hits += 1
             battleship_hits += 1
-            if destroyer_hits == 5:
+            if battleship_hits == 5:
                 print("YOU HAVE SUNK THE BATTLESHIP!") 
+        elif battleships_arena_hidden[row][column] == "H":
+            print("you have already fired here try again!")       
 
         print_arena(battleships_arena)          
-    print("""##############\n
-    YOUR SCORE IS:\n
-    ##############""")             
+    print("""######################\n
+YOUR SCORE IS: {} / 81\n
+######################""".format(score))             
 
 print_arena(battleships_arena_hidden)
+shoot()
+
    
                    
         
